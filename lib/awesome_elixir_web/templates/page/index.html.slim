@@ -1,0 +1,30 @@
+h1 | Awesome Elixir
+br
+
+| Filter by stars:
+br
+= link "All", to: "/"
+br
+= for stars <- [10, 50, 100, 500, 1000] do
+  = link ">= #{stars}", to: "/?min_stars=#{stars}"
+  br
+
+h2 | Contents
+br
+ul
+  = for category <- @content do
+    li = link category.name, to: "##{generate_category_id(category.name)}"
+
+br
+br
+
+= for category <- @content do
+  h3 id="#{generate_category_id(category.name)}" = category.name
+  ul
+  = for lib <- category.libs do
+    li
+      = link lib.name, to: lib.url
+      br
+      | Stars: #{lib.stars_count}
+      br
+      | Last commit was created #{updated_days_ago(lib.last_commit_date)} day(s) ago
